@@ -22,6 +22,8 @@ import { Order } from "./Order";
 import { OrderFindManyArgs } from "./OrderFindManyArgs";
 import { OrderWhereUniqueInput } from "./OrderWhereUniqueInput";
 import { OrderUpdateInput } from "./OrderUpdateInput";
+import { OrderRentalInput } from "../OrderRentalInput";
+import { OrderRentalOutput } from "../OrderRentalOutput";
 
 export class OrderControllerBase {
   constructor(protected readonly service: OrderService) {}
@@ -233,5 +235,22 @@ export class OrderControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Post("/rental")
+  @swagger.ApiOkResponse({
+    type: OrderRentalOutput,
+  })
+  @swagger.ApiNotFoundResponse({
+    type: errors.NotFoundException,
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async OrderRental(
+    @common.Body()
+    body: OrderRentalInput
+  ): Promise<OrderRentalOutput> {
+    return this.service.OrderRental(body);
   }
 }
