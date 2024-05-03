@@ -1,4 +1,5 @@
 import { RentalCreateNestedManyWithoutCustomersInput } from "./RentalCreateNestedManyWithoutCustomersInput";
+import { OrderCreateNestedManyWithoutCustomersInput } from "./OrderCreateNestedManyWithoutCustomersInput";
 
 export type CustomerCreateInput = {
   rentals?: RentalCreateNestedManyWithoutCustomersInput;
@@ -8,4 +9,5 @@ export type CustomerCreateInput = {
   phone?: string | null;
   address?: string | null;
   firstName?: string | null;
+  orders?: OrderCreateNestedManyWithoutCustomersInput;
 };

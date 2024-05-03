@@ -1,4 +1,5 @@
 import { RentalCreateNestedManyWithoutCarsInput } from "./RentalCreateNestedManyWithoutCarsInput";
+import { OrderCreateNestedManyWithoutCarsInput } from "./OrderCreateNestedManyWithoutCarsInput";
 
 export type CarCreateInput = {
   rentals?: RentalCreateNestedManyWithoutCarsInput;
@@ -7,4 +8,5 @@ export type CarCreateInput = {
   registrationNumber?: string | null;
   make?: string | null;
   model?: string | null;
+  orders?: OrderCreateNestedManyWithoutCarsInput;
 };

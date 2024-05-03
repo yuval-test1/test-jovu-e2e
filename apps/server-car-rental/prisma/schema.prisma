@@ -17,6 +17,21 @@ model Car {
   registrationNumber String?
   make               String?
   model              String?
+  orders             Order[]
+}
+
+model Customer {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  rentals       Rental[]
+  email         String?
+  licenseNumber String?
+  lastName      String?
+  phone         String?
+  address       String?
+  firstName     String?
+  orders        Order[]
 }
 
 model Feedback {
@@ -43,19 +58,23 @@ model Rental {
   feedbacks  Feedback[]
 }
 
-model Customer {
-  id            String   @id @default(cuid())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  rentals       Rental[]
-  email         String?
-  licenseNumber String?
-  lastName      String?
-  phone         String?
-  address       String?
-  firstName     String?
+model Order {
+  id          String           @id @default(cuid())
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  status      EnumOrderStatus?
+  rentalEnd   String?
+  car         Car?             @relation(fields: [carId], references: [id])
+  carId       String?
+  rentalStart String?
+  customer    Customer?        @relation(fields: [customerId], references: [id])
+  customerId  String?
 }
 
 enum EnumCarStatus {
+  Option1
+}
+
+enum EnumOrderStatus {
   Option1
 }

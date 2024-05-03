@@ -14,6 +14,7 @@ import {
   Prisma,
   Car as PrismaCar,
   Rental as PrismaRental,
+  Order as PrismaOrder,
 } from "@prisma/client";
 
 export class CarServiceBase {
@@ -58,5 +59,16 @@ export class CarServiceBase {
         where: { id: parentId },
       })
       .rentals(args);
+  }
+
+  async findOrders(
+    parentId: string,
+    args: Prisma.OrderFindManyArgs
+  ): Promise<PrismaOrder[]> {
+    return this.prisma.car
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .orders(args);
   }
 }

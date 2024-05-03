@@ -1,4 +1,5 @@
 import { Rental } from "../rental/Rental";
+import { Order } from "../order/Order";
 
 export type Car = {
   id: string;
@@ -10,4 +11,5 @@ export type Car = {
   registrationNumber: string | null;
   make: string | null;
   model: string | null;
+  orders?: Array<Order>;
 };

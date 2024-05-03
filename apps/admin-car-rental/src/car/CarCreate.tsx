@@ -12,6 +12,7 @@ import {
 } from "react-admin";
 
 import { RentalTitle } from "../rental/RentalTitle";
+import { OrderTitle } from "../order/OrderTitle";
 
 export const CarCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -37,6 +38,14 @@ export const CarCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="registrationNumber" source="registrationNumber" />
         <TextInput label="make" source="make" />
         <TextInput label="model" source="model" />
+        <ReferenceArrayInput
+          source="orders"
+          reference="Order"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={OrderTitle} />
+        </ReferenceArrayInput>
       </SimpleForm>
     </Create>
   );
