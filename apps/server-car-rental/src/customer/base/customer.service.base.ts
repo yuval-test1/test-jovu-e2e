@@ -16,6 +16,7 @@ import {
   Customer as PrismaCustomer,
   Rental as PrismaRental,
   Order as PrismaOrder,
+  FeedbackRating as PrismaFeedbackRating,
 } from "@prisma/client";
 
 export class CustomerServiceBase {
@@ -71,5 +72,16 @@ export class CustomerServiceBase {
         where: { id: parentId },
       })
       .orders(args);
+  }
+
+  async findFeedbackRatings(
+    parentId: string,
+    args: Prisma.FeedbackRatingFindManyArgs
+  ): Promise<PrismaFeedbackRating[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .feedbackRatings(args);
   }
 }

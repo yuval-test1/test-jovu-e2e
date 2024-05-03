@@ -18,6 +18,7 @@ import { EnumOrderStatus } from "./EnumOrderStatus";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { CarWhereUniqueInput } from "../../car/base/CarWhereUniqueInput";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { FeedbackRatingListRelationFilter } from "../../feedbackRating/base/FeedbackRatingListRelationFilter";
 
 @InputType()
 class OrderWhereInput {
@@ -88,6 +89,18 @@ class OrderWhereInput {
     nullable: true,
   })
   customer?: CustomerWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => FeedbackRatingListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => FeedbackRatingListRelationFilter)
+  @IsOptional()
+  @Field(() => FeedbackRatingListRelationFilter, {
+    nullable: true,
+  })
+  feedbackRatings?: FeedbackRatingListRelationFilter;
 }
 
 export { OrderWhereInput as OrderWhereInput };

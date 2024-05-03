@@ -11,6 +11,7 @@ import {
 
 import { RentalTitle } from "../rental/RentalTitle";
 import { OrderTitle } from "../order/OrderTitle";
+import { FeedbackRatingTitle } from "../feedbackRating/FeedbackRatingTitle";
 
 export const CustomerEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -37,6 +38,14 @@ export const CustomerEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={OrderTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="feedbackRatings"
+          reference="FeedbackRating"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={FeedbackRatingTitle} />
         </ReferenceArrayInput>
       </SimpleForm>
     </Edit>

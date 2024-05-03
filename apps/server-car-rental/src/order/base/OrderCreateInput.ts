@@ -16,6 +16,7 @@ import { IsEnum, IsOptional, IsString, ValidateNested } from "class-validator";
 import { CarWhereUniqueInput } from "../../car/base/CarWhereUniqueInput";
 import { Type } from "class-transformer";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { FeedbackRatingCreateNestedManyWithoutOrdersInput } from "./FeedbackRatingCreateNestedManyWithoutOrdersInput";
 
 @InputType()
 class OrderCreateInput {
@@ -75,6 +76,18 @@ class OrderCreateInput {
     nullable: true,
   })
   customer?: CustomerWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => FeedbackRatingCreateNestedManyWithoutOrdersInput,
+  })
+  @ValidateNested()
+  @Type(() => FeedbackRatingCreateNestedManyWithoutOrdersInput)
+  @IsOptional()
+  @Field(() => FeedbackRatingCreateNestedManyWithoutOrdersInput, {
+    nullable: true,
+  })
+  feedbackRatings?: FeedbackRatingCreateNestedManyWithoutOrdersInput;
 }
 
 export { OrderCreateInput as OrderCreateInput };

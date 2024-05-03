@@ -17,6 +17,7 @@ import { CustomerModule } from "./customer/customer.module";
 import { FeedbackModule } from "./feedback/feedback.module";
 import { RentalModule } from "./rental/rental.module";
 import { OrderModule } from "./order/order.module";
+import { FeedbackRatingModule } from "./feedbackRating/feedbackRating.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -34,6 +35,7 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     FeedbackModule,
     RentalModule,
     OrderModule,
+    FeedbackRatingModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

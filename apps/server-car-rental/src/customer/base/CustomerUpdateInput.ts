@@ -15,6 +15,7 @@ import { RentalUpdateManyWithoutCustomersInput } from "./RentalUpdateManyWithout
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { OrderUpdateManyWithoutCustomersInput } from "./OrderUpdateManyWithoutCustomersInput";
+import { FeedbackRatingUpdateManyWithoutCustomersInput } from "./FeedbackRatingUpdateManyWithoutCustomersInput";
 
 @InputType()
 class CustomerUpdateInput {
@@ -107,6 +108,18 @@ class CustomerUpdateInput {
     nullable: true,
   })
   orders?: OrderUpdateManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => FeedbackRatingUpdateManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => FeedbackRatingUpdateManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => FeedbackRatingUpdateManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  feedbackRatings?: FeedbackRatingUpdateManyWithoutCustomersInput;
 }
 
 export { CustomerUpdateInput as CustomerUpdateInput };

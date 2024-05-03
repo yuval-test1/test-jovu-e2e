@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   Edit,
   SimpleForm,
@@ -6,9 +7,13 @@ import {
   SelectInput,
   TextInput,
   ReferenceInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
+
 import { CarTitle } from "../car/CarTitle";
 import { CustomerTitle } from "../customer/CustomerTitle";
+import { FeedbackRatingTitle } from "../feedbackRating/FeedbackRatingTitle";
 
 export const OrderEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -34,6 +39,14 @@ export const OrderEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={CustomerTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="feedbackRatings"
+          reference="FeedbackRating"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={FeedbackRatingTitle} />
+        </ReferenceArrayInput>
       </SimpleForm>
     </Edit>
   );
