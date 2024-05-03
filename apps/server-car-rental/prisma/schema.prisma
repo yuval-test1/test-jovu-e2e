@@ -1,0 +1,61 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Car {
+  id                 String         @id @default(cuid())
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  rentals            Rental[]
+  rentalPricePerDay  Float?
+  status             EnumCarStatus?
+  registrationNumber String?
+  make               String?
+  model              String?
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comments  String?
+  rating    String?
+  rental    Rental?  @relation(fields: [rentalId], references: [id])
+  rentalId  String?
+}
+
+model Rental {
+  id         String     @id @default(cuid())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  totalPrice Float?
+  startDate  DateTime?
+  endDate    DateTime?
+  car        Car?       @relation(fields: [carId], references: [id])
+  carId      String?
+  customer   Customer?  @relation(fields: [customerId], references: [id])
+  customerId String?
+  feedbacks  Feedback[]
+}
+
+model Customer {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  rentals       Rental[]
+  email         String?
+  licenseNumber String?
+  lastName      String?
+  phone         String?
+  address       String?
+  firstName     String?
+}
+
+enum EnumCarStatus {
+  Option1
+}
