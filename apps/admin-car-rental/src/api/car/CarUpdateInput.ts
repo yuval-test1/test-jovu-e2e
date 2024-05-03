@@ -1,4 +1,5 @@
 import { RentalUpdateManyWithoutCarsInput } from "./RentalUpdateManyWithoutCarsInput";
+import { OrderUpdateManyWithoutCarsInput } from "./OrderUpdateManyWithoutCarsInput";
 
 export type CarUpdateInput = {
   rentals?: RentalUpdateManyWithoutCarsInput;
@@ -7,4 +8,5 @@ export type CarUpdateInput = {
   registrationNumber?: string | null;
   make?: string | null;
   model?: string | null;
+  orders?: OrderUpdateManyWithoutCarsInput;
 };

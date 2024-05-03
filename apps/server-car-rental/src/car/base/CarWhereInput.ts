@@ -18,6 +18,7 @@ import { RentalListRelationFilter } from "../../rental/base/RentalListRelationFi
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { EnumCarStatus } from "./EnumCarStatus";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { OrderListRelationFilter } from "../../order/base/OrderListRelationFilter";
 
 @InputType()
 class CarWhereInput {
@@ -98,6 +99,18 @@ class CarWhereInput {
     nullable: true,
   })
   model?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => OrderListRelationFilter)
+  @IsOptional()
+  @Field(() => OrderListRelationFilter, {
+    nullable: true,
+  })
+  orders?: OrderListRelationFilter;
 }
 
 export { CarWhereInput as CarWhereInput };

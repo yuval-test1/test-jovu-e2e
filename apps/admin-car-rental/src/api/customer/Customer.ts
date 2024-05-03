@@ -1,4 +1,5 @@
 import { Rental } from "../rental/Rental";
+import { Order } from "../order/Order";
 
 export type Customer = {
   id: string;
@@ -11,4 +12,5 @@ export type Customer = {
   phone: string | null;
   address: string | null;
   firstName: string | null;
+  orders?: Array<Order>;
 };

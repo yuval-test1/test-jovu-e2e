@@ -13,9 +13,10 @@ import { HttpInstrumentation } from "@opentelemetry/instrumentation-http";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-grpc";
 import { BatchSpanProcessor } from "@opentelemetry/sdk-trace-node";
 import { CarModule } from "./car/car.module";
+import { CustomerModule } from "./customer/customer.module";
 import { FeedbackModule } from "./feedback/feedback.module";
 import { RentalModule } from "./rental/rental.module";
-import { CustomerModule } from "./customer/customer.module";
+import { OrderModule } from "./order/order.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -29,9 +30,10 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
   controllers: [],
   imports: [
     CarModule,
+    CustomerModule,
     FeedbackModule,
     RentalModule,
-    CustomerModule,
+    OrderModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

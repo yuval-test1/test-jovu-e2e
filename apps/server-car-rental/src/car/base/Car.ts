@@ -22,6 +22,7 @@ import {
 import { Type } from "class-transformer";
 import { Rental } from "../../rental/base/Rental";
 import { EnumCarStatus } from "./EnumCarStatus";
+import { Order } from "../../order/base/Order";
 
 @ObjectType()
 class Car {
@@ -112,6 +113,15 @@ class Car {
     nullable: true,
   })
   model!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Order],
+  })
+  @ValidateNested()
+  @Type(() => Order)
+  @IsOptional()
+  orders?: Array<Order>;
 }
 
 export { Car as Car };

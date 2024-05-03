@@ -1,6 +1,7 @@
 import { StringFilter } from "../../util/StringFilter";
 import { RentalListRelationFilter } from "../rental/RentalListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { OrderListRelationFilter } from "../order/OrderListRelationFilter";
 
 export type CustomerWhereInput = {
   id?: StringFilter;
@@ -11,4 +12,5 @@ export type CustomerWhereInput = {
   phone?: StringNullableFilter;
   address?: StringNullableFilter;
   firstName?: StringNullableFilter;
+  orders?: OrderListRelationFilter;
 };

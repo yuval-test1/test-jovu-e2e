@@ -21,6 +21,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { EnumCarStatus } from "./EnumCarStatus";
+import { OrderCreateNestedManyWithoutCarsInput } from "./OrderCreateNestedManyWithoutCarsInput";
 
 @InputType()
 class CarCreateInput {
@@ -90,6 +91,18 @@ class CarCreateInput {
     nullable: true,
   })
   model?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrderCreateNestedManyWithoutCarsInput,
+  })
+  @ValidateNested()
+  @Type(() => OrderCreateNestedManyWithoutCarsInput)
+  @IsOptional()
+  @Field(() => OrderCreateNestedManyWithoutCarsInput, {
+    nullable: true,
+  })
+  orders?: OrderCreateNestedManyWithoutCarsInput;
 }
 
 export { CarCreateInput as CarCreateInput };

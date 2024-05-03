@@ -2,6 +2,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { RentalListRelationFilter } from "../rental/RentalListRelationFilter";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { OrderListRelationFilter } from "../order/OrderListRelationFilter";
 
 export type CarWhereInput = {
   id?: StringFilter;
@@ -11,4 +12,5 @@ export type CarWhereInput = {
   registrationNumber?: StringNullableFilter;
   make?: StringNullableFilter;
   model?: StringNullableFilter;
+  orders?: OrderListRelationFilter;
 };
