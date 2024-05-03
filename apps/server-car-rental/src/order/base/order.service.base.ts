@@ -16,6 +16,8 @@ import {
   Car as PrismaCar,
   Customer as PrismaCustomer,
 } from "@prisma/client";
+import { OrderRentalInput } from "../OrderRentalInput";
+import { OrderRentalOutput } from "../OrderRentalOutput";
 
 export class OrderServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -64,5 +66,8 @@ export class OrderServiceBase {
         where: { id: parentId },
       })
       .customer();
+  }
+  async OrderRental(args: OrderRentalInput): Promise<OrderRentalOutput> {
+    throw new Error("Not implemented");
   }
 }

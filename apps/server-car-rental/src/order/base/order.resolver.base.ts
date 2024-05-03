@@ -22,6 +22,8 @@ import { UpdateOrderArgs } from "./UpdateOrderArgs";
 import { DeleteOrderArgs } from "./DeleteOrderArgs";
 import { Car } from "../../car/base/Car";
 import { Customer } from "../../customer/base/Customer";
+import { OrderRentalInput } from "../OrderRentalInput";
+import { OrderRentalOutput } from "../OrderRentalOutput";
 import { OrderService } from "../order.service";
 @graphql.Resolver(() => Order)
 export class OrderResolverBase {
@@ -147,5 +149,13 @@ export class OrderResolverBase {
       return null;
     }
     return result;
+  }
+
+  @graphql.Mutation(() => OrderRentalOutput)
+  async OrderRental(
+    @graphql.Args()
+    args: OrderRentalInput
+  ): Promise<OrderRentalOutput> {
+    return this.service.OrderRental(args);
   }
 }
