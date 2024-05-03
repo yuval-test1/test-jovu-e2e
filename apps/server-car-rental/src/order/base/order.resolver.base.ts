@@ -20,6 +20,8 @@ import { OrderFindUniqueArgs } from "./OrderFindUniqueArgs";
 import { CreateOrderArgs } from "./CreateOrderArgs";
 import { UpdateOrderArgs } from "./UpdateOrderArgs";
 import { DeleteOrderArgs } from "./DeleteOrderArgs";
+import { FeedbackRatingFindManyArgs } from "../../feedbackRating/base/FeedbackRatingFindManyArgs";
+import { FeedbackRating } from "../../feedbackRating/base/FeedbackRating";
 import { Car } from "../../car/base/Car";
 import { Customer } from "../../customer/base/Customer";
 import { OrderRentalInput } from "../OrderRentalInput";
@@ -123,6 +125,20 @@ export class OrderResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [FeedbackRating], { name: "feedbackRatings" })
+  async findFeedbackRatings(
+    @graphql.Parent() parent: Order,
+    @graphql.Args() args: FeedbackRatingFindManyArgs
+  ): Promise<FeedbackRating[]> {
+    const results = await this.service.findFeedbackRatings(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @graphql.ResolveField(() => Car, {

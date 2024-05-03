@@ -15,6 +15,7 @@ import { IsString, IsDate, ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { Rental } from "../../rental/base/Rental";
 import { Order } from "../../order/base/Order";
+import { FeedbackRating } from "../../feedbackRating/base/FeedbackRating";
 
 @ObjectType()
 class Customer {
@@ -125,6 +126,15 @@ class Customer {
   @Type(() => Order)
   @IsOptional()
   orders?: Array<Order>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [FeedbackRating],
+  })
+  @ValidateNested()
+  @Type(() => FeedbackRating)
+  @IsOptional()
+  feedbackRatings?: Array<FeedbackRating>;
 }
 
 export { Customer as Customer };

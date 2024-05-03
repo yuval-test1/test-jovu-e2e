@@ -22,6 +22,7 @@ import { Type } from "class-transformer";
 import { EnumOrderStatus } from "./EnumOrderStatus";
 import { Car } from "../../car/base/Car";
 import { Customer } from "../../customer/base/Customer";
+import { FeedbackRating } from "../../feedbackRating/base/FeedbackRating";
 
 @ObjectType()
 class Order {
@@ -99,6 +100,15 @@ class Order {
   @Type(() => Customer)
   @IsOptional()
   customer?: Customer | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [FeedbackRating],
+  })
+  @ValidateNested()
+  @Type(() => FeedbackRating)
+  @IsOptional()
+  feedbackRatings?: Array<FeedbackRating>;
 }
 
 export { Order as Order };

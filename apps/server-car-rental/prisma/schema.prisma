@@ -21,17 +21,18 @@ model Car {
 }
 
 model Customer {
-  id            String   @id @default(cuid())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  rentals       Rental[]
-  email         String?
-  licenseNumber String?
-  lastName      String?
-  phone         String?
-  address       String?
-  firstName     String?
-  orders        Order[]
+  id              String           @id @default(cuid())
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  rentals         Rental[]
+  email           String?
+  licenseNumber   String?
+  lastName        String?
+  phone           String?
+  address         String?
+  firstName       String?
+  orders          Order[]
+  feedbackRatings FeedbackRating[]
 }
 
 model Feedback {
@@ -59,16 +60,29 @@ model Rental {
 }
 
 model Order {
-  id          String           @id @default(cuid())
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-  status      EnumOrderStatus?
-  rentalEnd   String?
-  car         Car?             @relation(fields: [carId], references: [id])
-  carId       String?
-  rentalStart String?
-  customer    Customer?        @relation(fields: [customerId], references: [id])
-  customerId  String?
+  id              String           @id @default(cuid())
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  status          EnumOrderStatus?
+  rentalEnd       String?
+  car             Car?             @relation(fields: [carId], references: [id])
+  carId           String?
+  rentalStart     String?
+  customer        Customer?        @relation(fields: [customerId], references: [id])
+  customerId      String?
+  feedbackRatings FeedbackRating[]
+}
+
+model FeedbackRating {
+  id         String    @id @default(cuid())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  rating     String?
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String?
+  comment    String?
+  order      Order?    @relation(fields: [orderId], references: [id])
+  orderId    String?
 }
 
 enum EnumCarStatus {

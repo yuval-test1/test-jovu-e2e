@@ -10,12 +10,15 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Order as PrismaOrder,
+  FeedbackRating as PrismaFeedbackRating,
   Car as PrismaCar,
   Customer as PrismaCustomer,
 } from "@prisma/client";
+
 import { OrderRentalInput } from "../OrderRentalInput";
 import { OrderRentalOutput } from "../OrderRentalOutput";
 
@@ -50,6 +53,17 @@ export class OrderServiceBase {
     args: Prisma.SelectSubset<T, Prisma.OrderDeleteArgs>
   ): Promise<PrismaOrder> {
     return this.prisma.order.delete(args);
+  }
+
+  async findFeedbackRatings(
+    parentId: string,
+    args: Prisma.FeedbackRatingFindManyArgs
+  ): Promise<PrismaFeedbackRating[]> {
+    return this.prisma.order
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .feedbackRatings(args);
   }
 
   async getCar(parentId: string): Promise<PrismaCar | null> {

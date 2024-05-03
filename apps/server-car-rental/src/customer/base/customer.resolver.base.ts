@@ -24,6 +24,8 @@ import { RentalFindManyArgs } from "../../rental/base/RentalFindManyArgs";
 import { Rental } from "../../rental/base/Rental";
 import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
 import { Order } from "../../order/base/Order";
+import { FeedbackRatingFindManyArgs } from "../../feedbackRating/base/FeedbackRatingFindManyArgs";
+import { FeedbackRating } from "../../feedbackRating/base/FeedbackRating";
 import { CustomerService } from "../customer.service";
 @graphql.Resolver(() => Customer)
 export class CustomerResolverBase {
@@ -121,6 +123,20 @@ export class CustomerResolverBase {
     @graphql.Args() args: OrderFindManyArgs
   ): Promise<Order[]> {
     const results = await this.service.findOrders(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [FeedbackRating], { name: "feedbackRatings" })
+  async findFeedbackRatings(
+    @graphql.Parent() parent: Customer,
+    @graphql.Args() args: FeedbackRatingFindManyArgs
+  ): Promise<FeedbackRating[]> {
+    const results = await this.service.findFeedbackRatings(parent.id, args);
 
     if (!results) {
       return [];

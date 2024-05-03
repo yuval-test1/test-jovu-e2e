@@ -15,6 +15,7 @@ import { RentalCreateNestedManyWithoutCustomersInput } from "./RentalCreateNeste
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { OrderCreateNestedManyWithoutCustomersInput } from "./OrderCreateNestedManyWithoutCustomersInput";
+import { FeedbackRatingCreateNestedManyWithoutCustomersInput } from "./FeedbackRatingCreateNestedManyWithoutCustomersInput";
 
 @InputType()
 class CustomerCreateInput {
@@ -107,6 +108,18 @@ class CustomerCreateInput {
     nullable: true,
   })
   orders?: OrderCreateNestedManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => FeedbackRatingCreateNestedManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => FeedbackRatingCreateNestedManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => FeedbackRatingCreateNestedManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  feedbackRatings?: FeedbackRatingCreateNestedManyWithoutCustomersInput;
 }
 
 export { CustomerCreateInput as CustomerCreateInput };

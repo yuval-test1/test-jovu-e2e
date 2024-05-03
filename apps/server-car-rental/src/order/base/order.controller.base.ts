@@ -22,6 +22,9 @@ import { Order } from "./Order";
 import { OrderFindManyArgs } from "./OrderFindManyArgs";
 import { OrderWhereUniqueInput } from "./OrderWhereUniqueInput";
 import { OrderUpdateInput } from "./OrderUpdateInput";
+import { FeedbackRatingFindManyArgs } from "../../feedbackRating/base/FeedbackRatingFindManyArgs";
+import { FeedbackRating } from "../../feedbackRating/base/FeedbackRating";
+import { FeedbackRatingWhereUniqueInput } from "../../feedbackRating/base/FeedbackRatingWhereUniqueInput";
 import { OrderRentalInput } from "../OrderRentalInput";
 import { OrderRentalOutput } from "../OrderRentalOutput";
 
@@ -235,6 +238,95 @@ export class OrderControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/feedbackRatings")
+  @ApiNestedQuery(FeedbackRatingFindManyArgs)
+  async findFeedbackRatings(
+    @common.Req() request: Request,
+    @common.Param() params: OrderWhereUniqueInput
+  ): Promise<FeedbackRating[]> {
+    const query = plainToClass(FeedbackRatingFindManyArgs, request.query);
+    const results = await this.service.findFeedbackRatings(params.id, {
+      ...query,
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        rating: true,
+
+        customer: {
+          select: {
+            id: true,
+          },
+        },
+
+        comment: true,
+
+        order: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/feedbackRatings")
+  async connectFeedbackRatings(
+    @common.Param() params: OrderWhereUniqueInput,
+    @common.Body() body: FeedbackRatingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      feedbackRatings: {
+        connect: body,
+      },
+    };
+    await this.service.updateOrder({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/feedbackRatings")
+  async updateFeedbackRatings(
+    @common.Param() params: OrderWhereUniqueInput,
+    @common.Body() body: FeedbackRatingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      feedbackRatings: {
+        set: body,
+      },
+    };
+    await this.service.updateOrder({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/feedbackRatings")
+  async disconnectFeedbackRatings(
+    @common.Param() params: OrderWhereUniqueInput,
+    @common.Body() body: FeedbackRatingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      feedbackRatings: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateOrder({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.Post("/rental")

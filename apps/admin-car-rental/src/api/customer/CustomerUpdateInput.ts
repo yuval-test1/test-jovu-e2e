@@ -1,5 +1,6 @@
 import { RentalUpdateManyWithoutCustomersInput } from "./RentalUpdateManyWithoutCustomersInput";
 import { OrderUpdateManyWithoutCustomersInput } from "./OrderUpdateManyWithoutCustomersInput";
+import { FeedbackRatingUpdateManyWithoutCustomersInput } from "./FeedbackRatingUpdateManyWithoutCustomersInput";
 
 export type CustomerUpdateInput = {
   rentals?: RentalUpdateManyWithoutCustomersInput;
@@ -10,4 +11,5 @@ export type CustomerUpdateInput = {
   address?: string | null;
   firstName?: string | null;
   orders?: OrderUpdateManyWithoutCustomersInput;
+  feedbackRatings?: FeedbackRatingUpdateManyWithoutCustomersInput;
 };
